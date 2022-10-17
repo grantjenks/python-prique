@@ -14,7 +14,7 @@
 .mypy_cache/
 
 # Setup directories
-/*.egg-info/
+*.egg-info/
 /build/
 /dist/
 /docs/_build/

@@ -1,4 +1,6 @@
 """Prique
+
+Simple reference implementation focused on API design.
 """
 
 from bisect import bisect_left, bisect_right

@@ -49,6 +49,7 @@ setup(
     author_email='contact@grantjenks.com',
     url='http://www.grantjenks.com/docs/prique/',
     license='Apache 2.0',
+    package_dir={'': 'src'},
     packages=['prique'],
     ext_modules=cythonize(
         [Extension('prique._core', ['src/prique/_core.py'])],
