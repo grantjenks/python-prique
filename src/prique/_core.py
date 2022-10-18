@@ -27,7 +27,7 @@ class Prique:
             branch = Branch()
             leaf = Leaf()
 
-            branch._parent = self
+            branch._parent = None
             branch._total = 1
             branch._max = key
             branch._left = leaf
