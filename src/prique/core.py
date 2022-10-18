@@ -88,27 +88,18 @@ class Prique:
         assert _tree._parent is None
         assert _tree._total >= 0
 
-        if tree._total == 0:
-            assert tree._max is None
-            assert tree._left is None
-            assert tree._right is None
-            return
+        if _tree._total == 0:
+            assert _tree._max is None
+            assert _tree._left is None
+            assert _tree._right is None
+            return 0
+
+        return 0
 
 
 class Branch:
     pass
-    # _parent = None
-    # _total = 0
-    # _max = None
-    # _left = None
-    # _right = None
 
 
 class Leaf:
     pass
-    # _parent = None
-    # _count = 0
-    # _next = None
-    # _prev = None
-    # _keys = [None] * MAX_NODE_SIZE
-    # _values = [None] * MAX_NODE_SIZE

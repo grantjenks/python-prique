@@ -20,11 +20,13 @@ cdef class Leaf(Branch):
 cdef class Prique:
     cdef Branch _tree
 
-    cdef init(self)
+    cpdef init(self)
 
     @cython.locals(branch=Branch, leaf=Leaf)
-    cdef int add(self, object key, object value)
+    cpdef int add(self, object key, object value)
 
-    cdef int discard(self, object key, object value)
+    cpdef int discard(self, object key, object value)
 
-    cdef int len(self)
+    cpdef int len(self)
+
+    cpdef int check(self)

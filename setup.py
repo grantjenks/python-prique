@@ -52,7 +52,7 @@ setup(
     package_dir={'': 'src'},
     packages=['prique'],
     ext_modules=cythonize(
-        [Extension('prique._core', ['src/prique/_core.py'])],
+        [Extension('prique.core', ['src/prique/core.py'])],
         language_level='3',
     ),
     tests_require=['tox'],
