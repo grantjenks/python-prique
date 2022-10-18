@@ -35,12 +35,15 @@ class Prique:
 
             leaf._parent = branch
             leaf._total = 1
+            leaf._max = key
             leaf._left = None
             leaf._right = None
             leaf._keys = [key]
             leaf._values = [value]
 
             branch._total = 1
+            branch._max = key
+            branch._left = leaf
             return 0
 
         branch = self._tree
