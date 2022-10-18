@@ -10,9 +10,11 @@ Can the path of pivots necessary be proven?
 """
 
 
+import cython
+
+
 def insort(keys, key):
     return 0
-
 
 
 class Prique:
