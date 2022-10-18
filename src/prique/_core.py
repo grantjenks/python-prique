@@ -47,15 +47,15 @@ class Prique:
 
         while type(branch) is not Leaf:
             if branch._left is None:
-                branch = branch._right
+                branch = cython.cast(Branch, branch._right)
             elif branch._right is None:
-                branch = branch._left
-            elif key < branch._left._max:
-                branch = branch._left
+                branch = cython.cast(Branch, branch._left)
+            elif key < cython.cast(Branch, branch._left)._max:
+                branch = cython.cast(Branch, branch._left)
             else:
-                branch = branch._right
+                branch = cython.cast(Branch, branch._right)
 
-        leaf = branch
+        leaf = cython.cast(Leaf, branch)
 
         if leaf._total < 33:
             index = insort(leaf._keys, key)
