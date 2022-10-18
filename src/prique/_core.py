@@ -19,19 +19,19 @@ def insort(keys, key):
 
 class Prique:
     def init(self):
-        self._tree = None
+        branch = Branch()
+        branch._parent = None
+        branch._total = 0
+        branch._max = None
+        branch._left = None
+        branch._right = None
+        self._tree = branch
 
 
     def add(self, key, value):
-        if self._tree is None:
-            branch = Branch()
+        if self._tree._total == 0:
+            branch = self._tree
             leaf = Leaf()
-
-            branch._parent = None
-            branch._total = 1
-            branch._max = key
-            branch._left = leaf
-            branch._right = None
 
             leaf._parent = branch
             leaf._total = 1
@@ -40,7 +40,7 @@ class Prique:
             leaf._keys = [key]
             leaf._values = [value]
 
-            self._tree = branch
+            branch._total = 1
             return 0
 
         branch = self._tree
