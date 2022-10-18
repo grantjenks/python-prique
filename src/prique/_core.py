@@ -1,4 +1,12 @@
 """Prique Core
+
+Use Cython in pure-Python mode! No pxd necessary!
+
+For delete, two scenarios:
+1. Rebalance with neighbor
+2. Shift items to neighbor and delete
+Can the path of pivots necessary be proven?
+
 """
 
 
