@@ -1,6 +1,11 @@
 import cython
 
 
+cdef int MAX_LEAF_SIZE
+cdef int MIN_LEAF_SIZE
+cdef int AVG_LEAF_SIZE
+
+
 cdef int insort(list keys, object key)
 
 

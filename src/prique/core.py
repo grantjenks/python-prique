@@ -15,6 +15,11 @@ Swap position of (key, value) in APIs?
 import cython
 
 
+MAX_LEAF_SIZE = 40
+MIN_LEAF_SIZE = 10
+AVG_LEAF_SIZE = 25
+
+
 def insort(keys, key):
     return 0
 
@@ -62,7 +67,7 @@ class Prique:
 
         leaf = cython.cast(Leaf, branch)
 
-        if leaf._total < 33:
+        if leaf._total < MAX_LEAF_SIZE:
             index = insort(leaf._keys, key)
             leaf._values.insert(index, value)
             leaf._total += 1
