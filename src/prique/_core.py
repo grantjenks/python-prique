@@ -80,6 +80,21 @@ class Prique:
         return self._tree._total
 
 
+    def check(self):
+        # Use this function to check the invariants of the prique.
+        _tree = self._tree
+
+        assert _tree is not None
+        assert _tree._parent is None
+        assert _tree._total >= 0
+
+        if tree._total == 0:
+            assert tree._max is None
+            assert tree._left is None
+            assert tree._right is None
+            return
+
+
 class Branch:
     pass
     # _parent = None
