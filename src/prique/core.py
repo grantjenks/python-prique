@@ -7,6 +7,8 @@ For delete, two scenarios:
 2. Shift items to neighbor and delete
 Can the path of pivots necessary be proven?
 
+Swap position of (key, value) in APIs?
+
 """
 
 
