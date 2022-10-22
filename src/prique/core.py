@@ -51,7 +51,7 @@ class Prique:
         leaf._values = []
         self._tree = leaf
 
-    def add(self, key, value):
+    def add_left(self, key, value):
         # TODO return index of key, value
         # Traverse to leaf for insert.
 
@@ -62,7 +62,7 @@ class Prique:
                 branch = cython.cast(Branch, branch._right)
             elif branch._right is None:
                 branch = cython.cast(Branch, branch._left)
-            elif key < cython.cast(Branch, branch._left)._max:
+            elif key <= cython.cast(Branch, branch._left)._max:
                 branch = cython.cast(Branch, branch._left)
             else:
                 branch = cython.cast(Branch, branch._right)
@@ -72,23 +72,29 @@ class Prique:
         # Insert key and value in leaf.
 
         if leaf._total < MAX_LEAF_SIZE_SUB1:
-            index = insort(leaf._keys, key)
+            leaf_keys = leaf._keys
+            index = bisect_left(leaf_keys, key)
+            leaf_keys.insert(index, key)
             leaf._values.insert(index, value)
-            leaf._total += 1
-
-            if index == leaf._total:
-                leaf._max = key
-
+            leaf_total = leaf._total
+            new_max = (index == leaf_total)
+            leaf._total = leaf_total + 1
             branch = leaf._parent
+
+            if new_max:
+                leaf._max = key
+                if branch is not None and branch._right is leaf:
+                    branch._max = key
         else:
             leaf_parent = leaf._parent
-            leaf_is_left = leaf_parent._left is leaf
             old_leaf_left = leaf._left
             old_leaf_right = leaf._right
             keys = leaf._keys
             values = leaf._values
-            index = insort(keys, key)
+            index = bisect_left(keys, key)
+            keys.insert(index, key)
             values.insert(index, value)
+            new_max = (index == MAX_LEAF_SIZE_SUB1)
             keys_left = keys[:MAX_LEAF_SIZE_DIV2]
             keys_right = keys[MAX_LEAF_SIZE_DIV2:]
             values_left = values[:MAX_LEAF_SIZE_DIV2]
@@ -115,20 +121,33 @@ class Prique:
             leaf_right._right = old_leaf_right
 
             branch._parent = leaf_parent
-            branch._total = MAX_LEAF_SIZE
+            branch._total = MAX_LEAF_SIZE_SUB1
             branch._max = keys_right[-1]
             branch._left = leaf_left
             branch._right = leaf_right
 
-            if leaf_parent is not None:
-                if leaf_is_left:
+            if leaf_parent is None:
+                self._tree = branch
+            else:
+                if leaf_parent._left is leaf:
                     leaf_parent._left = branch
                 else:
                     leaf_parent._right = branch
 
-        # TODO traverse branch to root and update max
-        # calculate whether new_max occurred
-        # traverse to root and update only so long as _right is traversed
+        # Traverse branch to root and update max if necessary.
+
+        if new_max:
+            max_branch = branch
+            while max_branch is not None:
+                max_branch_parent = max_branch._parent
+                if max_branch_parent is None:
+                    break
+                max_branch_is_right = max_branch_parent._right is max_branch
+                if max_branch_is_right:
+                    max_branch_parent._max = key
+                else:
+                    break
+                max_branch = max_branch_parent
 
         # Traverse branch to root, increment total, and pivot as necessary.
 
@@ -141,6 +160,8 @@ class Prique:
             # B   C
 
             branch_a_total = branch._total
+            branch_b_total = branch._left._total
+            branch_c_total = branch._right._total
 
             if branch_a_total < MAX_LEAF_SIZE_MUL2:
                 pass
