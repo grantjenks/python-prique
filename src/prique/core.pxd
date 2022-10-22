@@ -6,7 +6,7 @@ cdef int MIN_LEAF_SIZE
 cdef int AVG_LEAF_SIZE
 
 
-cdef int insort(list keys, object key)
+cdef int bisect_left(list values, object value)
 
 
 cdef class Branch:
