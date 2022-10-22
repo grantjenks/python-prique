@@ -27,7 +27,7 @@ cdef class Prique:
 
     cpdef init(self)
 
-    cpdef int add(self, object key, object value)
+    cpdef int add_left(self, object key, object value)
 
     cpdef int discard(self, object key, object value)
 
