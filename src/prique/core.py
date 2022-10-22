@@ -330,6 +330,7 @@ class Prique:
 
     def check(self):
         # Use this function to check the invariants of the prique.
+        count = 0
         _tree = self._tree
 
         assert _tree is not None
@@ -342,6 +343,40 @@ class Prique:
             assert _tree._right is None
             return 0
 
+        def _check(node):
+            assert node is not None
+
+            if type(node) is Branch:
+                assert node._left._parent is node
+                assert node._right._parent is node
+                left_max, left_total = _check(node._left)
+                right_max, right_total = _check(node._right)
+                assert node._total == left_total + right_total
+                assert left_max <= right_max
+                assert node._max is right_max
+                return node._max, node._total
+
+            assert type(node) is Leaf
+            assert node._total == len(node._keys)
+            assert node._max is node._keys[-1]
+
+            if node._left is not None:
+                assert type(node._left) is Leaf
+                assert node._left._keys[-1] <= node._keys[0]
+
+            if node._right is not None:
+                assert type(node._right) is Leaf
+                assert node._keys[-1] <= node._right._keys[0]
+
+            assert len(node._keys) == len(node._values)
+            keys = node._keys
+
+            for index in range(1, len(keys)):
+                assert keys[index - 1] <= keys[index]
+
+            return node._max, node._total
+
+        _check(_tree)
         return 0
 
 
