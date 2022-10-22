@@ -173,6 +173,33 @@ class Prique:
             branch = branch_parent
 
 
+    def dot(self):
+        print('digraph {')
+        leafs = []
+
+        def _visit(node):
+            if node is None:
+                return
+            print(id(node), f'[label="Total: {node._total}"];')
+            if node._left is not None:
+                print(id(node), '->', id(node._left), ';')
+            if node._right is not None:
+                print(id(node), '->', id(node._right), ';')
+            if type(node) is Branch:
+                _visit(node._left)
+                _visit(node._right)
+            else:
+                leafs.append(node)
+
+        _visit(self._tree)
+        print('{')
+        print('    rank = same;')
+        for leaf in leafs:
+            print('   ', id(leaf), ';')
+        print('}')
+        print('}')
+
+
     def _pivot_left(self, branch):
         """Pivot left
 
