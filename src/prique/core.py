@@ -249,6 +249,12 @@ class Prique:
         # _max
         branch_a._max = branch_d_max
 
+        if branch_a_parent is not None:
+            if branch_a_parent._left is branch_a:
+                branch_a_parent._left = branch_c
+            else:
+                branch_a_parent._right = branch_c
+
         if self._tree is branch_a:
             self._tree = branch_c
 
