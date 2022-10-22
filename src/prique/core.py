@@ -27,8 +27,16 @@ MIN_LEAF_SIZE = MAX_LEAF_SIZE >> 2
 AVG_LEAF_SIZE = MIN_LEAF_SIZE + (MAX_LEAF_SIZE - MIN_LEAF_SIZE) >> 1
 
 
-def insort(keys, key):
-    return 0
+def bisect_left(values, value):
+    lo = 0
+    hi = len(values)
+    while lo < hi:
+        mid = (lo + hi) // 2
+        if values[mid] < value:
+            lo = mid + 1
+        else:
+            hi = mid
+    return lo
 
 
 class Prique:
