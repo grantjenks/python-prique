@@ -130,6 +130,9 @@ class Prique:
                 else:
                     leaf_parent._right = branch
 
+            if old_leaf_right is not None:
+                old_leaf_right._left = leaf_right
+
         # Traverse branch to root and update max if necessary.
 
         if new_max:
