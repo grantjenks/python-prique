@@ -58,14 +58,10 @@ class Prique:
         branch = self._tree
 
         while type(branch) is not Leaf:
-            if branch._left is None:
+            if cython.cast(Branch, branch._left)._max < key:
                 branch = cython.cast(Branch, branch._right)
-            elif branch._right is None:
-                branch = cython.cast(Branch, branch._left)
-            elif key <= cython.cast(Branch, branch._left)._max:
-                branch = cython.cast(Branch, branch._left)
             else:
-                branch = cython.cast(Branch, branch._right)
+                branch = cython.cast(Branch, branch._left)
 
         leaf = cython.cast(Leaf, branch)
 
