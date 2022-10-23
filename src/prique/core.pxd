@@ -36,8 +36,6 @@ cdef class Prique:
 
     cpdef int len(self)
 
-    cpdef int check(self)
-
     cdef _pivot_left(self, Branch branch)
 
     cdef _pivot_right(self, Branch branch)
