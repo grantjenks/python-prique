@@ -51,12 +51,12 @@ def test_add_rand():
     p.init()
     rand = random.Random(0)
     letters = itertools.repeat(string.ascii_lowercase)
-    items = list(zip(range(1000), letters))
+    items = list(zip(range(100000), letters))
     rand.shuffle(items)
     for index, letter in items:
         p.add_left(index, letter)
-        assert p.check() == 0
-    assert p.len() == 1000
+    assert p.check() == 0
+    assert p.len() == 100000
 
 
 def test_add_same():
