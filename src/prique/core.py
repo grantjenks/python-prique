@@ -9,17 +9,16 @@ Swap position of (key, value) in APIs?
 
 """
 
+import cython
 
-if True:
-    class Cython:
-        def cast(self, kind, value):
-            return value
-    cython = Cython()
-else:
-    import cython
+MAX_LEAF_SIZE = 40
 
+# class Cython:
+#     def cast(self, kind, value):
+#         return value
+# cython = Cython()
+# MAX_LEAF_SIZE = 8
 
-MAX_LEAF_SIZE = 8
 MAX_LEAF_SIZE_SUB1 = MAX_LEAF_SIZE - 1
 MAX_LEAF_SIZE_DIV2 = MAX_LEAF_SIZE >> 1
 MAX_LEAF_SIZE_MUL2 = MAX_LEAF_SIZE << 1
