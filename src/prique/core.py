@@ -82,8 +82,8 @@ class Prique:
                     branch._max = key
         else:
             leaf_parent = leaf._parent
-            old_leaf_left = leaf._left
-            old_leaf_right = leaf._right
+            old_leaf_left = cython.cast(Leaf, leaf._left)
+            old_leaf_right = cython.cast(Leaf, leaf._right)
             keys = leaf._keys
             values = leaf._values
             index = bisect_left(keys, key)
