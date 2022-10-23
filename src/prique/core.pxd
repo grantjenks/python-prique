@@ -2,6 +2,9 @@ import cython
 
 
 cdef int MAX_LEAF_SIZE
+cdef int MAX_LEAF_SIZE_SUB1
+cdef int MAX_LEAF_SIZE_DIV2
+cdef int MAX_LEAF_SIZE_MUL2
 cdef int MIN_LEAF_SIZE
 cdef int AVG_LEAF_SIZE
 
