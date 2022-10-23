@@ -376,6 +376,43 @@ class Prique:
             return node._max, node._total
 
         _check(_tree)
+
+        # Traverse to left-most leaf and iterate all keys.
+
+        left_leaf = _tree
+
+        while left_leaf._left is not None:
+            left_leaf = left_leaf._left
+
+        keys_inc = []
+        leaf = left_leaf
+
+        while leaf is not None:
+            keys_inc.extend(leaf._keys)
+            leaf = leaf._right
+
+        assert len(keys_inc) == _tree._total
+
+        # Traverse to right-most leaf and iterate all keys.
+
+        right_leaf = _tree
+
+        while right_leaf._right is not None:
+            right_leaf = right_leaf._right
+
+        keys_dec = []
+        leaf = right_leaf
+
+        while leaf is not None:
+            keys_dec.extend(reversed(leaf._keys))
+            leaf = leaf._left
+
+        assert len(keys_dec) == _tree._total
+
+        # Validate key order in leafs.
+
+        assert all(a is b for a, b in zip(keys_inc, reversed(keys_dec)))
+
         return 0
 
 
