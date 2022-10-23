@@ -145,7 +145,9 @@ class Prique:
                 if max_branch_is_right:
                     max_branch_parent._max = key
                 else:
-                    break
+                    # I have not found how to cover this branch.
+                    # Maybe it's not possible?
+                    break  # pragma: no cover
                 max_branch = max_branch_parent
 
         # Traverse branch to root, increment total, and pivot as necessary.
