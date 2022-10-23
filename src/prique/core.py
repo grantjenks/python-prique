@@ -320,8 +320,6 @@ class Prique:
 
 
     def discard(self, key, value):
-        if self._tree is None:
-            return False
         pass  # TODO
 
 
