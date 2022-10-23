@@ -181,7 +181,7 @@ class Prique:
         def _visit(node):
             if node is None:
                 return
-            print(id(node), f'[label="Total: {node._total}"];')
+            print(id(node), f'[label="Total: {node._total}\\nMax: {node._max}"];')
             if node._left is not None:
                 print(id(node), '->', id(node._left), ';')
             if node._right is not None:
