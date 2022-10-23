@@ -27,10 +27,10 @@ AVG_LEAF_SIZE = MIN_LEAF_SIZE + (MAX_LEAF_SIZE - MIN_LEAF_SIZE) >> 1
 
 
 def bisect_left(values, value):
-    lo = 0
-    hi = len(values)
+    lo: cython.int = 0
+    hi: cython.int = len(values)
     while lo < hi:
-        mid = (lo + hi) // 2
+        mid: cython.int = (lo + hi) >> 1
         if values[mid] < value:
             lo = mid + 1
         else:
@@ -71,8 +71,8 @@ class Prique:
             index = bisect_left(leaf_keys, key)
             leaf_keys.insert(index, key)
             leaf._values.insert(index, value)
-            leaf_total = leaf._total
-            new_max = (index == leaf_total)
+            leaf_total: cython.int = leaf._total
+            new_max: cython.int = (index == leaf_total)
             leaf._total = leaf_total + 1
             branch = leaf._parent
 
@@ -140,6 +140,7 @@ class Prique:
                 max_branch_parent = max_branch._parent
                 if max_branch_parent is None:
                     break
+                max_branch_is_right: cython.int
                 max_branch_is_right = max_branch_parent._right is max_branch
                 if max_branch_is_right:
                     max_branch_parent._max = key
@@ -160,8 +161,10 @@ class Prique:
             # B   C
 
             branch_a_total = branch._total
-            branch_b_total = branch._left._total
-            branch_c_total = branch._right._total
+            branch_b_total: cython.int
+            branch_b_total = cython.cast(Branch, branch._left)._total
+            branch_c_total: cython.int
+            branch_c_total = cython.cast(Branch, branch._right)._total
 
             if branch_a_total < MAX_LEAF_SIZE_MUL2:
                 pass
@@ -219,16 +222,16 @@ class Prique:
 
         """
         branch_a = branch
-        branch_b = branch_a._left
-        branch_c = branch_a._right
-        branch_d = branch_c._left
-        branch_e = branch_c._right
+        branch_b = cython.cast(Branch, branch_a._left)
+        branch_c = cython.cast(Branch, branch_a._right)
+        branch_d = cython.cast(Branch, branch_c._left)
+        branch_e = cython.cast(Branch, branch_c._right)
 
         branch_a_parent = branch_a._parent
 
-        branch_b_total = branch_b._total
-        branch_d_total = branch_d._total
-        branch_e_total = branch_e._total
+        branch_b_total: cython.int = branch_b._total
+        branch_d_total: cython.int = branch_d._total
+        branch_e_total: cython.int = branch_e._total
 
         branch_d_max = branch_d._max
 
@@ -242,7 +245,7 @@ class Prique:
         branch_d._parent = branch_a
 
         # _total
-        branch_a_total = branch_b_total + branch_d_total
+        branch_a_total: cython.int = branch_b_total + branch_d_total
         branch_a._total = branch_a_total
         branch_c._total = branch_a_total + branch_e_total
 
@@ -278,16 +281,16 @@ class Prique:
 
         """
         branch_a = branch
-        branch_b = branch_a._left
-        branch_c = branch_a._right
-        branch_d = branch_b._left
-        branch_e = branch_b._right
+        branch_b = cython.cast(Branch, branch_a._left)
+        branch_c = cython.cast(Branch, branch_a._right)
+        branch_d = cython.cast(Branch, branch_b._left)
+        branch_e = cython.cast(Branch, branch_b._right)
 
         branch_a_parent = branch_a._parent
 
-        branch_c_total = branch_c._total
-        branch_d_total = branch_d._total
-        branch_e_total = branch_e._total
+        branch_c_total: cython.int = branch_c._total
+        branch_d_total: cython.int = branch_d._total
+        branch_e_total: cython.int = branch_e._total
 
         branch_c_max = branch_c._max
 
@@ -301,7 +304,7 @@ class Prique:
         branch_e._parent = branch_a
 
         # _total
-        branch_a_total = branch_e_total + branch_c_total
+        branch_a_total: cython.int = branch_e_total + branch_c_total
         branch_a._total = branch_a_total
         branch_b._total = branch_d_total + branch_a_total
 
