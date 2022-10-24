@@ -174,34 +174,6 @@ class Prique:
 
             branch = branch_parent
 
-
-    def dot(self):
-        print('digraph {')
-        leafs = []
-
-        def _visit(node):
-            if node is None:
-                return
-            print(id(node), f'[label="Total: {node._total}\\nMax: {node._max}"];')
-            if node._left is not None:
-                print(id(node), '->', id(node._left), ';')
-            if node._right is not None:
-                print(id(node), '->', id(node._right), ';')
-            if type(node) is Branch:
-                _visit(node._left)
-                _visit(node._right)
-            else:
-                leafs.append(node)
-
-        _visit(self._tree)
-        print('{')
-        print('    rank = same;')
-        for leaf in leafs:
-            print('   ', id(leaf), ';')
-        print('}')
-        print('}')
-
-
     def _pivot_left(self, branch):
         """Pivot left
 
@@ -259,7 +231,6 @@ class Prique:
 
         if self._tree is branch_a:
             self._tree = branch_c
-
 
     def _pivot_right(self, branch):
         """Pivot right
@@ -319,14 +290,11 @@ class Prique:
         if self._tree is branch_a:
             self._tree = branch_b
 
-
     def discard(self, key, value):
         pass  # TODO
 
-
     def len(self):
         return self._tree._total
-
 
     def check(self):
         # Use this function to check the invariants of the prique.
@@ -415,6 +383,32 @@ class Prique:
         assert all(a is b for a, b in zip(keys_inc, reversed(keys_dec)))
 
         return 0
+
+    def dot(self):
+        print('digraph {')
+        leafs = []
+
+        def _visit(node):
+            if node is None:
+                return
+            print(id(node), f'[label="Total: {node._total}\\nMax: {node._max}"];')
+            if node._left is not None:
+                print(id(node), '->', id(node._left), ';')
+            if node._right is not None:
+                print(id(node), '->', id(node._right), ';')
+            if type(node) is Branch:
+                _visit(node._left)
+                _visit(node._right)
+            else:
+                leafs.append(node)
+
+        _visit(self._tree)
+        print('{')
+        print('    rank = same;')
+        for leaf in leafs:
+            print('   ', id(leaf), ';')
+        print('}')
+        print('}')
 
 
 class Branch:
