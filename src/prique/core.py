@@ -51,7 +51,6 @@ class Prique:
         self._tree = leaf
 
     def add_left(self, key, value):
-        # TODO return index of key, value
         # Traverse to leaf for insert.
 
         branch = self._tree
