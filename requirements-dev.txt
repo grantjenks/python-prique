@@ -1,1 +1,5 @@
 cython
+ipython
+pytest
+pytest-cov
+sortedcontainers
